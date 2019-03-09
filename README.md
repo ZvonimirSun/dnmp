@@ -12,7 +12,7 @@
 - `php:7-fpm-alpine`: 另外安装了`pdo_mysql`、`zip`、`mysqli gd`插件。
   - `php.ini`目录: `./php-fpm`
 - `acme.sh`: 用于申请ssl证书。
-  - 证书存储目录: `./ssl
+  - 证书存储目录: `./ssl`
 
 ### 开始
 
