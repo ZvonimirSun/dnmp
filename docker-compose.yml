@@ -1,0 +1,72 @@
+version: "3"
+services:
+  # dnmp
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # html
+      - ./nginx/html:/usr/share/nginx/html
+      # nginx configs
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/enable-php.conf:/etc/nginx/enable-php.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      # certificates
+      - ./ssl:/etc/nginx/ssl:ro
+      # logs
+      - ./nginx/logs/access.log:/var/log/nginx/access.log
+      - ./nginx/logs/error.log:/var/log/nginx/error.log
+    networks:
+      - php
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:5
+    container_name: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - mysql
+
+  php:
+    build: ./php-fpm
+    image: zvonimirsun/php:7-fpm-alpine
+    container_name: php
+    restart: always
+    ports:
+      - 127.0.0.1:9000:9000
+    volumes:
+      - ./php-fpm/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./nginx/html:/usr/share/nginx/html
+    networks:
+      - mysql
+      - php
+    depends_on:
+      - mysql
+
+  # Let's encrypt
+  acme.sh:
+    image: neilpang/acme.sh
+    container_name: acme.sh
+    restart: always
+    command: daemon
+    environment:
+    #  - CX_Key="some key"
+    #  - CX_Secret="some secret"
+    volumes:
+      - ./ssl:/acme.sh
+    network_mode: host
+
+networks:
+  mysql:
+  php:
