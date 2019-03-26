@@ -1,6 +1,6 @@
 From php:7-fpm-alpine
 MAINTAINER zvonimirsun <hi@iszy.xyz>
 
-RUN apk add --no-cache libzip-dev freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
+RUN apk add --no-cache  alpine-sdk libpng libpng-dev \
     && docker-php-ext-install -j$(nproc) pdo_mysql mysqli gd \
-    && apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev libzip-dev
+    && apk del  alpine-sdk libpng-dev
