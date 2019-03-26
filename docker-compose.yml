@@ -14,6 +14,8 @@ services:
       # nginx configs
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/enable-php.conf:/etc/nginx/enable-php.conf:ro
+      - ./nginx/enable-php-pathinfo.conf:/etc/nginx/enable-php-pathinfo.conf:ro
+      - ./nginx/pathinfo.conf:/etc/nginx/pathinfo.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       # certificates
       - ./ssl:/etc/nginx/ssl:ro
