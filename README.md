@@ -8,7 +8,7 @@
   - 说明
     - 已支持`TLS 1.3`
   - 网站目录: `./nginx/html`
-  - 虚拟主机配置目录: `./nginx/conf.d`
+  - 虚拟主机配置目录: `./nginx/conf/site.d`
 - `mysql:5`
   - 数据库目录: `./mysql`
 - `php:7-fpm-alpine`:
@@ -46,9 +46,9 @@ php:
 ### 常用Nginx配置
 
 - 启用`php`:
-  - `include enable-php.conf`
+  - `include conf.d/enable-php.conf`
 - 启用带`pathinfo`的`php`:
-  - `include enable-php-pathinfo.conf`
+  - `include conf.d/enable-php-pathinfo.conf`
 - 启用`HSTS`:
   - `add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;`
   - 此句可根据需要适当调整

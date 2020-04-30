@@ -12,18 +12,13 @@ services:
       # html
       - ./nginx/html:/usr/share/nginx/html
       # nginx configs
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/enable-php.conf:/etc/nginx/enable-php.conf:ro
-      - ./nginx/enable-php-pathinfo.conf:/etc/nginx/enable-php-pathinfo.conf:ro
-      - ./nginx/pathinfo.conf:/etc/nginx/pathinfo.conf:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/conf:/etc/nginx
       # certificates
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./ssl:/etc/ssl:ro
       # logs
-      - ./nginx/logs/access.log:/var/log/nginx/access.log
-      - ./nginx/logs/error.log:/var/log/nginx/error.log
+      - ./nginx/logs:/var/log/nginx
     networks:
-      - php
+      - nginx
     depends_on:
       - php
 
@@ -52,7 +47,7 @@ services:
       - ./nginx/html:/usr/share/nginx/html
     networks:
       - mysql
-      - php
+      - nginx
     depends_on:
       - mysql
 
@@ -70,5 +65,5 @@ services:
     network_mode: host
 
 networks:
+  nginx:
   mysql:
-  php:
