@@ -14,9 +14,7 @@ services:
       # nginx configs
       - ./nginx/conf:/etc/nginx
       # certificates
-      - ./ssl:/etc/ssl:ro
-      # logs
-      - ./nginx/logs:/var/log/nginx
+      - ./ssl:/ssl:ro
     networks:
       - nginx
     depends_on:
