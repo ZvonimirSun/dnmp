@@ -1,5 +1,4 @@
 From php:7-fpm-alpine
-MAINTAINER zvonimirsun <hi@iszy.xyz>
 
 # 更换国内源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \

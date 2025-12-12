@@ -2,7 +2,7 @@ version: "3"
 services:
   # dnmp
   nginx:
-    image: nginx:alpine
+    image: ghcr.io/zvonimirsun/nginx-brotli:alpine
     container_name: nginx
     restart: always
     ports:
@@ -12,7 +12,7 @@ services:
       # html
       - ./nginx/html:/usr/share/nginx/html
       # nginx configs
-      - ./nginx/conf:/etc/nginx
+      - ./nginx/conf:/etc/nginx:ro
       # certificates
       - ./ssl:/ssl:ro
     networks:
@@ -35,7 +35,7 @@ services:
 
   php:
     build: ./php-fpm
-    image: zvonimirsun/php:7-fpm-alpine
+    image: php:7-fpm-alpine-custom
     container_name: php
     restart: always
     ports:
